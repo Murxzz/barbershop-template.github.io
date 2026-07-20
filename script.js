@@ -139,49 +139,68 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     6. BOOKING MODAL WINDOW
+     6. BOOKING MODAL WINDOW & FORM HANDLER
      ========================================================================== */
   const bookingButtons = document.querySelectorAll('.open-booking-modal');
   const bookingModal = document.getElementById('bookingModal');
   const modalClose = document.getElementById('modalClose');
+  const modalBookingForm = document.getElementById('modalBookingForm');
+  const bookingSuccessMsg = document.getElementById('bookingSuccessMessage');
+
+  const resetBookingModal = () => {
+    if (modalBookingForm) {
+      modalBookingForm.style.display = 'block';
+      modalBookingForm.reset();
+      const submitBtn = modalBookingForm.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'PIERAKSTĪTIES';
+      }
+    }
+    if (bookingSuccessMsg) {
+      bookingSuccessMsg.style.display = 'none';
+    }
+  };
 
   bookingButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       if (bookingModal) {
+        resetBookingModal();
         bookingModal.classList.add('active');
         document.body.style.overflow = 'hidden';
       }
     });
   });
 
-  if (modalClose) {
-    modalClose.addEventListener('click', () => {
+  const closeModal = () => {
+    if (bookingModal) {
       bookingModal.classList.remove('active');
       document.body.style.overflow = '';
-    });
+      setTimeout(resetBookingModal, 300);
+    }
+  };
+
+  if (modalClose) {
+    modalClose.addEventListener('click', closeModal);
   }
 
   if (bookingModal) {
     bookingModal.addEventListener('click', (e) => {
       if (e.target === bookingModal) {
-        bookingModal.classList.remove('active');
-        document.body.style.overflow = '';
+        closeModal();
       }
     });
   }
 
   /* ==========================================================================
-     7. FORM SUBMISSION HANDLER
+     7. AJAX FORM SUBMISSION
      ========================================================================== */
-  const modalBookingForm = document.getElementById('modalBookingForm');
-
   if (modalBookingForm) {
     modalBookingForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const submitBtn = modalBookingForm.querySelector('button[type="submit"]');
-      const originalBtnText = submitBtn ? submitBtn.textContent : '';
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.textContent = 'SŪTA...';
@@ -198,15 +217,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (response.ok) {
-          modalBookingForm.innerHTML = `
-            <div style="text-align: center; padding: 30px 10px;">
-              <div style="font-size: 3rem; margin-bottom: 16px; color: #4CAF50;">✓</div>
-              <h3 style="font-size: 1.6rem; text-transform: uppercase; margin-bottom: 12px;">PALDIES!</h3>
-              <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.6;">
-                Jūsu pieteikums ir veiksmīgi saņemts.<br>Tuvākajā laikā ar Jums sazināsimies!
-              </p>
-            </div>
-          `;
+          modalBookingForm.style.display = 'none';
+          if (bookingSuccessMsg) {
+            bookingSuccessMsg.style.display = 'block';
+          }
         } else {
           modalBookingForm.submit();
         }

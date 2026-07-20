@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="VIRSRAKSTS - Barbershop Template">
-  <title>Template</title>
+  <meta name="description" content="Eleganta barbershop un frizētavas mājaslapas šablons">
+  <title>Barbershop - Premium Matu Griezumi un Bārdas Kopšana</title>
 
   <!-- Google Fonts & Stylesheet -->
   <link rel="stylesheet" href="style.css">
@@ -768,23 +768,32 @@
   <div class="modal-overlay" id="bookingModal">
     <div class="modal-card glass-card">
       <button class="modal-close" id="modalClose">&times;</button>
+      <div id="bookingSuccessMessage" style="display: none; text-align: center; padding: 30px 10px;">
+        <div style="font-size: 3rem; margin-bottom: 16px; color: #4CAF50;">✓</div>
+        <h3 style="font-size: 1.6rem; text-transform: uppercase; margin-bottom: 12px;">PALDIES!</h3>
+        <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.6;">
+          Jūsu pieteikums ir veiksmīgi saņemts.<br>Tuvākajā laikā ar Jums sazināsimies!
+        </p>
+      </div>
+
       <form id="modalBookingForm" action="https://formsubmit.co/kozlovskismarkuss7@gmail.com" method="POST">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_next" value="https://murxzz.github.io/barbershop-template.github.io/">
         <div class="form-group">
           <label class="form-label">Vārds</label>
-          <input type="text" name="name" class="form-input" placeholder="TEKSTS" required>
+          <input type="text" name="name" class="form-input" placeholder="Jūsu vārds" required>
         </div>
         <div class="form-group">
           <label class="form-label">Telefons</label>
-          <input type="tel" name="phone" class="form-input" placeholder="TEKSTS" required>
+          <input type="tel" name="phone" class="form-input" placeholder="+371 20000000" required>
         </div>
         <div class="form-group">
           <label class="form-label">Pakalpojums</label>
-          <select name="service" class="form-input" style="cursor: pointer;">
-            <option>PAKALPOJUMA NOSAUKUMS - CENA</option>
-            <option>PAKALPOJUMA NOSAUKUMS - CENA</option>
-            <option>PAKALPOJUMA NOSAUKUMS - CENA</option>
+          <select name="service" class="form-input" style="cursor: pointer;" required>
+            <option value="">Izvēlies pakalpojumu</option>
+            <option value="Vīriešu matu griezums">Vīriešu matu griezums</option>
+            <option value="Bārdas korekcija">Bārdas korekcija</option>
+            <option value="Griezums + Bārda">Griezums + Bārda</option>
           </select>
         </div>
         <div class="form-row">
