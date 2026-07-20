@@ -171,27 +171,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ==========================================================================
-     7. FORM INTERACTION HANDLERS
-     ========================================================================== */
-  const contactForm = document.getElementById('contactForm');
-  const modalBookingForm = document.getElementById('modalBookingForm');
-
-  if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('Ziņa nosūtīta! (Demo)');
-      contactForm.reset();
-    });
-  }
-
-  if (modalBookingForm) {
-    modalBookingForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('Pieraksts veiksmīgi izveidots! (Demo)');
-      bookingModal.classList.remove('active');
-      document.body.style.overflow = '';
-      modalBookingForm.reset();
-    });
-  }
+  // Form submit handles native submit via FormSubmit.co action
 });
