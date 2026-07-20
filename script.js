@@ -171,5 +171,48 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Form submit handles native submit via FormSubmit.co action
+  /* ==========================================================================
+     7. FORM SUBMISSION HANDLER
+     ========================================================================== */
+  const modalBookingForm = document.getElementById('modalBookingForm');
+
+  if (modalBookingForm) {
+    modalBookingForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitBtn = modalBookingForm.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn ? submitBtn.textContent : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'SŪTA...';
+      }
+
+      try {
+        const formData = new FormData(modalBookingForm);
+        const response = await fetch('https://formsubmit.co/ajax/kozlovskismarkuss7@gmail.com', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json'
+          },
+          body: formData
+        });
+
+        if (response.ok) {
+          modalBookingForm.innerHTML = `
+            <div style="text-align: center; padding: 30px 10px;">
+              <div style="font-size: 3rem; margin-bottom: 16px; color: #4CAF50;">✓</div>
+              <h3 style="font-size: 1.6rem; text-transform: uppercase; margin-bottom: 12px;">PALDIES!</h3>
+              <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.6;">
+                Jūsu pieteikums ir veiksmīgi saņemts.<br>Tuvākajā laikā ar Jums sazināsimies!
+              </p>
+            </div>
+          `;
+        } else {
+          modalBookingForm.submit();
+        }
+      } catch (err) {
+        modalBookingForm.submit();
+      }
+    });
+  }
 });
